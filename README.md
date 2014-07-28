@@ -1,4 +1,4 @@
 GestiondeStock
 ==============
 
-Gestion de Stock
+Veuillez consulter la <a href="https://github.com/GestiondeStock-SMB215/GestiondeStock/wiki">documentation</a>
