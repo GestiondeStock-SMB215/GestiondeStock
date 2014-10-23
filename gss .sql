@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2014 at 10:47 PM
--- Server version: 5.6.14
+-- Generation Time: Oct 23, 2014 at 08:35 AM
+-- Server version: 5.6.14-log
 -- PHP Version: 5.5.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -46,9 +46,9 @@ CREATE TABLE IF NOT EXISTS `branch` (
 --
 
 INSERT INTO `branch` (`bra_id`, `bra_name`, `bra_cnt_id`, `bra_city`, `bra_add_str`, `bra_add_1`, `bra_tel_1`, `bra_tel_2`, `bra_fax`, `bra_email`, `bra_time_stamp`) VALUES
-(2, 'Cnam Bekfaya', 118, 'Bekfaya', 'Main Road', 'ISAE - Cnam Bekfaya', '04986321', '04986321', '04986321', 'beckfaya@isae.edu.lb', '2014-09-09 11:29:00'),
-(3, 'Dbaye', 118, 'Aokar', '123', '345', '981234', '098345', '1314', 'cnam@hotmail.com', '2014-09-18 18:37:16'),
-(4, 'gfrdg', 5, 'v fdbv', 'bvfgdb', '5', 'bgfn ', 'bgf', 'bngf', 'bgfd', '2014-09-18 18:41:02');
+(1, 'Cnam Bekfaya', 118, 'Bekfaya', 'Main Road', 'ISAE - Cnam Bekfaya', '04986321', '04986321', '04986321', 'beckfaya@isae.edu.lb', '2014-09-09 11:29:00'),
+(2, 'Dbaye', 118, 'Aokar', '123', '345', '981234', '098345', '1314', 'cnam@hotmail.com', '2014-09-18 18:37:16'),
+(3, 'Bir Hassan', 5, 'Beirut', 'Bir Hassan', 'Camille Chamoun', '01223332', '01223333', '01223334', 'Beirut@isae.edu.lb', '2014-09-18 18:41:02');
 
 -- --------------------------------------------------------
 
@@ -467,6 +467,7 @@ CREATE TABLE IF NOT EXISTS `invoice_out_detail` (
 
 CREATE TABLE IF NOT EXISTS `order_in` (
   `ord_in_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ord_in_bra_id` int(11) NOT NULL,
   `ord_in_cust_id` int(11) NOT NULL DEFAULT '0',
   `ord_in_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `ord_in_del_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -479,10 +480,10 @@ CREATE TABLE IF NOT EXISTS `order_in` (
 -- Dumping data for table `order_in`
 --
 
-INSERT INTO `order_in` (`ord_in_id`, `ord_in_cust_id`, `ord_in_date`, `ord_in_del_date`, `ord_in_status`, `ord_in_time_stamp`) VALUES
-(1, 1, '2014-10-14 00:00:00', '0000-00-00 00:00:00', 1, '2014-10-14 20:08:56'),
-(2, 7, '2014-10-14 00:00:00', '0000-00-00 00:00:00', 1, '2014-10-14 20:08:56'),
-(3, 1, '2014-10-07 00:00:00', '0000-00-00 00:00:00', 2, '2014-10-14 20:10:18');
+INSERT INTO `order_in` (`ord_in_id`, `ord_in_bra_id`, `ord_in_cust_id`, `ord_in_date`, `ord_in_del_date`, `ord_in_status`, `ord_in_time_stamp`) VALUES
+(1, 1, 1, '2014-10-14 00:00:00', '0000-00-00 00:00:00', 1, '2014-10-14 20:08:56'),
+(2, 2, 7, '2014-10-14 00:00:00', '0000-00-00 00:00:00', 1, '2014-10-14 20:08:56'),
+(3, 1, 1, '2014-10-07 00:00:00', '0000-00-00 00:00:00', 2, '2014-10-14 20:10:18');
 
 -- --------------------------------------------------------
 
@@ -504,8 +505,8 @@ CREATE TABLE IF NOT EXISTS `order_in_detail` (
 --
 
 INSERT INTO `order_in_detail` (`ord_in_det_id`, `ord_in_det_ord_in_id`, `ord_in_det_prod_id`, `ord_in_det_qty`, `ord_in_det_time_stamp`) VALUES
-(1, 2, 3, 2, '2014-10-14 20:09:07'),
-(2, 2, 3, 2, '2014-10-14 20:09:08');
+(1, 2, 1, 2, '2014-10-14 20:09:07'),
+(2, 2, 2, 2, '2014-10-14 20:09:08');
 
 -- --------------------------------------------------------
 
@@ -573,7 +574,7 @@ CREATE TABLE IF NOT EXISTS `page` (
   `page_order` int(11) NOT NULL DEFAULT '0',
   `page_time_stamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`page_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
 
 --
 -- Dumping data for table `page`
@@ -629,7 +630,10 @@ INSERT INTO `page` (`page_id`, `page_parent_id`, `page_name`, `page_url`, `page_
 (48, 47, 'Product Report', '/rep/prod.php', 3, 1, 2, '0000-00-00 00:00:00'),
 (49, 21, 'Tracking', '/track/track.php', 3, 1, 1, '2014-10-22 18:49:22'),
 (50, 47, 'Products In Branches', '/rep/bra.php', 3, 0, 3, '2014-10-22 21:13:53'),
-(51, 44, 'View Invoice In Detail', '/invoiceIn/viewInvIn.php', 3, 0, 2, '2014-10-22 20:55:41');
+(51, 44, 'View Invoice In Detail', '/invoiceIn/viewInvIn.php', 3, 0, 2, '2014-10-22 20:55:41'),
+(52, 38, 'Add Order In', '/orderIn/add.php', 3, 0, 2, '0000-00-00 00:00:00'),
+(53, 38, 'Delete Order In', '/orderIn/delete.php', 3, 0, 2, '0000-00-00 00:00:00'),
+(54, 38, 'Delete Order in Detail', '/orderIn/DeleteOrderInDetail.php', 3, 0, 3, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -663,11 +667,8 @@ CREATE TABLE IF NOT EXISTS `product` (
 --
 
 INSERT INTO `product` (`prod_id`, `prod_cat_id`, `prod_sku`, `prod_upc`, `prod_name`, `prod_desc`, `prod_qty`, `prod_color`, `prod_size`, `prod_weight`, `prod_sup_id`, `prod_up`, `prod_status`, `prod_vend_id`, `prod_time_stamp`) VALUES
-(1, 2, 'C2P1S1', '811138000202', 'Apprener Javascript', 'Des lecons électronique pour apprendre à coder en javascript.', 1, 'none', '700MB', 0.5, 0, 12, 1, 0, '2014-09-11 00:00:00'),
-(3, 1, 'C1P1S1', '211132748201', 'Java Bible', 'Java Bible Book', 1, 'none', '', 3000, 0, 13, 1, 0, '2014-09-11 00:00:00'),
-(13, 1, '12', '121', '121', '12', 12, '12', '12', 121, 1, 2, 0, 0, '2014-09-18 21:09:22'),
-(14, 1, 'aejhdf', 'esfhd', '7', '7', 7, '7', '7', 7, 1, 3, 0, 0, '2014-09-18 21:10:24'),
-(15, 4, 'vfds', 'vgfsrd', 'vgfd', 'bfgd', 0, 'bfd', 'vfdsv', 1, 1, 4, 1, 0, '2014-09-18 21:27:33');
+(1, 2, 'C2P1S1', '811138000202', 'Apprener Javascript', 'Des lecons Ã©lectronique pour apprendre Ã  coder en javascript.', 1, 'none', '700MB', 0.5, 0, 12, 1, 0, '2014-09-11 00:00:00'),
+(2, 1, 'C1P1S1', '211132748201', 'Java Bible', 'Java Bible Book', 1, 'none', '', 3000, 0, 13, 1, 0, '2014-09-11 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -682,7 +683,7 @@ CREATE TABLE IF NOT EXISTS `prod_bra` (
   `pb_qty` int(11) NOT NULL,
   `pb_time_stamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`pb_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `prod_bra`
@@ -690,7 +691,9 @@ CREATE TABLE IF NOT EXISTS `prod_bra` (
 
 INSERT INTO `prod_bra` (`pb_id`, `pb_prod_id`, `pb_bra_id`, `pb_qty`, `pb_time_stamp`) VALUES
 (1, 1, 1, 13, '2014-10-15 00:00:00'),
-(2, 1, 2, 23, '2014-10-10 00:00:00');
+(2, 1, 2, 23, '2014-10-10 00:00:00'),
+(3, 2, 1, 15, '2014-10-15 00:00:00'),
+(4, 2, 2, 6, '2014-10-15 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -875,10 +878,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_role_id`, `user_bra_id`, `user_name`, `user_username`, `user_password`, `user_email`, `user_last_login`, `user_status`, `user_time_stamp`) VALUES
-(1, 1, 2, 'Administrator', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@gss.com', '2014-10-22 19:28:28', 1, '2014-07-27 11:07:00'),
+(1, 1, 2, 'Administrator', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@gss.com', '2014-10-23 08:07:48', 1, '2014-07-27 11:07:00'),
 (2, 1, 2, 'Henry Kozhaya', 'henry', '027e4180beedb29744413a7ea6b84a42', 'henry.kozhaya@gmail.com', '2014-09-12 09:18:36', 1, '2014-09-08 13:46:25'),
 (3, 2, 2, 'Management User', 'manager', '1d0258c2440a8d19e716292b231e3190', 'manage@cnam.fr', '0000-00-00 00:00:00', 1, '2014-09-09 18:22:01'),
-(4, 3, 3, 'Wadih Maksoud', 'woodz', '688400f039eb04372edb160e6ca048e4', 'wadih@hotmail.com', '2014-09-16 22:14:38', 1, '2014-09-16 22:14:38');
+(4, 3, 3, 'Wadih Maksoud', 'woodz', '688400f039eb04372edb160e6ca048e4', 'wadih@hotmail.com', '2014-10-23 09:14:07', 1, '2014-09-16 22:14:38');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
